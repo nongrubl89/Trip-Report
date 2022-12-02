@@ -1,0 +1,35 @@
+{
+  "name": "trip-report",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.7.1",
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-brands-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "apollo-link-error": "^1.1.13",
+    "apollo-upload-client": "^17.0.0",
+    "babel-plugin-styled-components": "^2.0.7",
+    "bootstrap": "^5.2.2",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
+    "next": "13.0.0",
+    "next-with-apollo": "^5.3.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
+    "react-dom": "18.2.0",
+    "react-helmet": "^6.1.0",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "eslint": "8.26.0",
+    "eslint-config-next": "13.0.0"
+  }
+}
