@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 import Router from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import { SINGLE_TAIL_QUERY } from "./SingleTailPage";
-import { google_maps_key } from "../public/config";
+// import { google_maps_key } from "../public/config";
 import { useState } from "react";
 import Select, { components, PlaceholderProps } from "react-select";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
@@ -19,8 +19,7 @@ const CREATE_TRIP_MUTATION = gql`
     $CabinAttendantName: String!
     $Feedback: String!
     $CateringDetails: String!
-    $uuid: String!
-    $tail_number: ID!
+    $id: ID!
   ) {
     createTrip(
       data: {
@@ -30,8 +29,6 @@ const CREATE_TRIP_MUTATION = gql`
         CabinAttendantName: $CabinAttendantName
         Feedback: $Feedback
         CateringDetails: $CateringDetails
-        uuid: $uuid
-        tail_number: $tail_number
       }
     ) {
       data {

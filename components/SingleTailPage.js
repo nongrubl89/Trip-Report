@@ -8,6 +8,7 @@ import Trips from "./Trips";
 import LargeHeaderCard from "../styles/SingleTail";
 import TitleItem from "../styles/Title";
 import ButtonGrid from "../styles/ButtonGrid";
+
 export const SINGLE_TAIL_QUERY = gql`
   query SINGLE_TAIL_QUERY($Slug: String!) {
     tailNumbers(filters: { Slug: { eq: $Slug } }) {
@@ -19,7 +20,8 @@ export const SINGLE_TAIL_QUERY = gql`
           PIC
           SIC
           CabinAttendant
-          StandardStock
+          StandardStockNonPerishable
+          StandardStockPerishable
           AircraftType
           HomeICAO
           Slug
@@ -72,9 +74,14 @@ export default function TailPage({ id }) {
         </div>
         <div style={{ display: "grid", gap: "1em" }}>
           <p>
-            <strong>Standard Stock:</strong>
+            <strong>Non-Perishable Standard Stock:</strong>
             {"\n"}
-            {tailData.StandardStock}
+            {tailData.StandardStockNonPerishable}
+          </p>
+          <p>
+            <strong>Perishable Standard Stock:</strong>
+            {"\n"}
+            {tailData.StandardStockPerishable}
           </p>
           <ButtonGrid alignItems="end" placeSelf="end">
             <Link
@@ -87,7 +94,7 @@ export default function TailPage({ id }) {
             >
               <button>Add a trip</button>
             </Link>
-            <Link href="/">
+            <Link href={`/edittail/${tailData.Slug}`}>
               <button>Edit Tail Details</button>
             </Link>
           </ButtonGrid>
