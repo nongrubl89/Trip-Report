@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import ErrorComponent from "./ErrorComponent";
-import Tail from "./Tail";
+import Tail from "./SingleTailCard";
 import MasterGrid from "../styles/MasterGrid";
 export const ALL_TAILS_QUERY = gql`
   query ALL_TAILS_QUERY {
@@ -27,10 +27,9 @@ export default function Tails({ tailsArray }) {
   if (error) return <ErrorComponent error={error.message} />;
   return (
     <MasterGrid>
-      {/* {data?.tailNumbers?.data.map((tail) => (
+      {data?.tailNumbers?.data.map((tail) => (
         <Tail key={tail.id} tail={tail} />
-      ))} */}
-      Hello
+      ))}
     </MasterGrid>
   );
 }

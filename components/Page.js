@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Playfair Display', serif;
     padding: 0;
-    margin: 0;
+    margin:0;
     font-size: 1.5rem;
     line-height:2;
     background-color: #99C5F8;
@@ -34,7 +34,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const InnerStyles = styled.div`
-  margin: 0 auto;
+  margin: auto;
 `;
 
 export default function Page({ children }) {

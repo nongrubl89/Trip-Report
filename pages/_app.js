@@ -5,8 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import Page from "../components/Page";
 import withData from "../lib/withData";
 import "bootstrap/dist/css/bootstrap.css";
-import Head from "next/head";
-import App from "next/app";
+import { useApollo } from "../lib/withData";
 import { ThemeProvider } from "styled-components";
 
 const theme = {
@@ -16,9 +15,10 @@ const theme = {
 };
 
 // eslint-disable-next-line no-shadow
-function MyApp({ Component, pageProps, apollo }) {
+export default function MyApp({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps);
   return (
-    <ApolloProvider client={apollo}>
+    <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
         <Page>
           <Component {...pageProps} />
@@ -27,13 +27,5 @@ function MyApp({ Component, pageProps, apollo }) {
     </ApolloProvider>
   );
 }
-// MyApp.getInitialProps = async function ({ Component, ctx }) {
-//   let pageProps = {};
-//   if (Component.getInitialProps) {
-//     pageProps = await Component.getInitialProps(ctx);
-//   }
-//   pageProps.query = ctx.query;
-//   return { pageProps };
-// };
 
-export default withData(MyApp);
+// export default withData(MyApp);

@@ -1,17 +1,9 @@
-import Tails from "../components/Tails";
+import Tails from "../components/AllTailsPage";
 
-export default function TailsPage({ tailsArray }) {
+export default function TailsPage() {
   return (
     <div>
       <Tails />
     </div>
   );
-}
-
-export async function getStaticProps() {
-  return {
-    props: {
-      tailsArray: ["onetail"],
-    },
-  };
 }

@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 export default function TripCard({ trip, tailNum }) {
   const router = useRouter();
   const t = trip.attributes;
+  console.log(trip);
   return (
     <CardItem>
-      <Link href={`/tail/${tailNum}/trip/${trip.id}`}>
+      <Link href={`/trip/${trip.attributes.uuid}`}>
         <h2>{t.Routing}</h2>
       </Link>
       <h2>

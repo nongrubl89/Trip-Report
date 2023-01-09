@@ -6,6 +6,7 @@ const CardItem = styled.div`
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   padding: 2em;
   border-radius: 8px;
+  margin: 2em;
   a svg {
     padding-left: 0;
     transition-duration: 0.4s;

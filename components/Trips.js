@@ -8,7 +8,12 @@ export default function Trips({ trips, tailNum }) {
       <MasterGrid>
         {" "}
         {trips.data.map((trip) => (
-          <TripCard key={trip.id} trip={trip} tailNum={tailNum} />
+          <TripCard
+            key={trip.id}
+            trip={trip}
+            tailNum={tailNum}
+            uuid={trip.uuid}
+          />
         ))}
       </MasterGrid>
     );

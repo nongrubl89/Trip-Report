@@ -5,7 +5,10 @@ import SingleTail from "../styles/SingleTail";
 import Button from "../styles/Button";
 import Link from "next/link";
 import Trips from "./Trips";
-const SINGLE_TAIL_QUERY = gql`
+import LargeHeaderCard from "../styles/SingleTail";
+import TitleItem from "../styles/Title";
+import ButtonGrid from "../styles/ButtonGrid";
+export const SINGLE_TAIL_QUERY = gql`
   query SINGLE_TAIL_QUERY($Slug: String!) {
     tailNumbers(filters: { Slug: { eq: $Slug } }) {
       data {
@@ -27,6 +30,7 @@ const SINGLE_TAIL_QUERY = gql`
                 StartDate
                 EndDate
                 Routing
+                uuid
               }
             }
           }
@@ -40,13 +44,13 @@ export default function TailPage({ id }) {
   const { data, loading, error } = useQuery(SINGLE_TAIL_QUERY, {
     variables: { Slug: id },
   });
-  console.log(id);
+  console.log("id", id);
   const tailData = data?.tailNumbers?.data[0].attributes;
   if (loading) return <h3>Loading</h3>;
   if (error) return <ErrorComponent error={error.message} />;
   return (
     <>
-      <SingleTail>
+      <LargeHeaderCard>
         <div>
           <h2>
             <strong>{tailData.TailNumber}</strong>
@@ -66,15 +70,30 @@ export default function TailPage({ id }) {
             <strong>Cabin Attendant:</strong> {tailData.CabinAttendant}
           </p>
         </div>
-        <p>
-          <strong>Standard Stock:</strong>
-          {"\n"}
-          {tailData.StandardStock}
-        </p>
-      </SingleTail>
-      <Button>
-        <Link href={`/newtrip/${id}`}>Add a new trip</Link>
-      </Button>
+        <div style={{ display: "grid", gap: "1em" }}>
+          <p>
+            <strong>Standard Stock:</strong>
+            {"\n"}
+            {tailData.StandardStock}
+          </p>
+          <ButtonGrid alignItems="end" placeSelf="end">
+            <Link
+              href={{
+                pathname: `/newtrip/${tailData.Slug}`,
+                query: {
+                  tailNumber: tailData.TailNumber,
+                },
+              }}
+            >
+              <button>Add a trip</button>
+            </Link>
+            <Link href="/">
+              <button>Edit Tail Details</button>
+            </Link>
+          </ButtonGrid>
+        </div>
+      </LargeHeaderCard>
+      <TitleItem>Previous Trips</TitleItem>
       <Trips tailNum={tailData.Slug} trips={tailData.trips}></Trips>
     </>
   );

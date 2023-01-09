@@ -14,7 +14,11 @@ export default function Hero() {
           in one convenient place. Sharing passenger feedback has never been
           easier.
         </h1>
-        <ButtonGrid>
+        <ButtonGrid
+          placeSelf="flex-end"
+          alignItems="flex-end"
+          justifyContent="center"
+        >
           <Button gridColumn="1/2">See My Trips</Button>
           <Button gridColumn="2/3">Register</Button>
         </ButtonGrid>
