@@ -12,12 +12,11 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: inherit;
   }
   body {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Sofia Sans', sans-serif;
     padding: 0;
     margin:0;
     font-size: 1.5rem;
     line-height:2;
-    background-color: #99C5F8;
   }
 
   a {

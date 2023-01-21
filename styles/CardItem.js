@@ -1,4 +1,10 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
+
+const softBounce = keyframes`
+0%{transform: translateX(0);}
+50%{transform: translateX(100px);}
+100%{transform: translateX(0);}
+`
 
 const CardItem = styled.div`
   background: whitesmoke;
@@ -7,18 +13,21 @@ const CardItem = styled.div`
   padding: 2em;
   border-radius: 8px;
   margin: 2em;
-  a svg {
-    padding-left: 0;
-    transition-duration: 0.4s;
+  svg {
+    animation-name: ${softBounce}
+    animation-duration:1s;
+    animation-iteration-count:1;
   }
   a svg:hover {
-    padding-left: 5em;
-    transition-duration: 0.4s;
+    animation-name: ${softBounce}
+    animation-duration:1s;
+    animation-iteration-count:1;
   }
   h2 {
     font-weight: 700;
     margin-bottom: 1em;
   }
 `;
+
 
 export default CardItem;

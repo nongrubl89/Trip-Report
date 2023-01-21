@@ -2,16 +2,14 @@ import styled from "styled-components";
 
 const HeroImage = styled.div`
   background-image: url(${(props) => props.image.src});
-  width: 100%;
-  height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
+  height:20em;
+  width:16em;
   background-size: cover;
-  position: absolute;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, (100px, max-content));
-  justify-content: center;
-  align-content: center;
+  display:grid;
+ justify-self:center;
+ padding:3em;
+ margin:2em;
+ 
 `;
 
 export default HeroImage;

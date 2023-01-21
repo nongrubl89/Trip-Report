@@ -6,6 +6,7 @@ const MasterGrid = styled.div`
   grid-gap: 2em;
   justify-content: left;
   /* margin: 1em; */
+  background:black;
 `;
 
 export default MasterGrid;

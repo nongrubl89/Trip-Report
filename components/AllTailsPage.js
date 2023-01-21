@@ -23,6 +23,7 @@ export default function Tails({ tailsArray }) {
   console.log("tails", tailsArray);
   const { data, error, loading } = useQuery(ALL_TAILS_QUERY);
   console.log(data?.tailNumbers?.data);
+  console.log(error);
   if (loading) return <h3>Loading</h3>;
   if (error) return <ErrorComponent error={error.message} />;
   return (

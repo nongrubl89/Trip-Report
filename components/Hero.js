@@ -1,28 +1,25 @@
 import HeroImage from "../styles/HeroImage";
 import HeroText from "../styles/HeroText";
-import jumbotronimg from "../public/images/jumbotronimg.jpg";
-import Button from "../styles/Button";
-import ButtonGrid from "../styles/ButtonGrid";
 import HeroGrid from "../styles/HeroGrid";
+import OpenWindow from "../public/images/OpenWindow.png"
+import WindownoBG from "../public/images/WindownoBG.png"
+import styled, {keyframes} from "styled-components";
+import { IconGrid } from "../styles/IconGrid";
+import IconCardGrid from "./IconCardGrid";
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <HeroImage image={jumbotronimg}>
-      <HeroText>
-        <h1>
-          Trip Report helps crew members track and report passenger preferences
-          in one convenient place. Sharing passenger feedback has never been
-          easier.
-        </h1>
-        <ButtonGrid
-          placeSelf="flex-end"
-          alignItems="flex-end"
-          justifyContent="center"
-        >
-          <Button gridColumn="1/2">See My Trips</Button>
-          <Button gridColumn="2/3">Register</Button>
-        </ButtonGrid>
-      </HeroText>
-    </HeroImage>
+    <>
+    <HeroGrid>
+    {/* <HeroImage image={WindownoBG}>
+    </HeroImage> */}
+    <Image src={OpenWindow} height="8em" width="8em"></Image>
+    <HeroText>    <h1>With Trip Report, sharing passenger feedback and preferences is easy and convenient.</h1></HeroText>
+    </HeroGrid>
+    <IconCardGrid/>
+    
+    
+    </>
   );
 }

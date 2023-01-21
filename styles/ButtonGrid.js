@@ -15,6 +15,7 @@ const ButtonGrid = styled.div`
     background-color: black;
     color: white;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    font-family:'Sofia Sans', sans-serif;
   }
   button:hover {
     color: whitesmoke;
