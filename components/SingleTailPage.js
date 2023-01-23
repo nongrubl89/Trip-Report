@@ -51,7 +51,7 @@ export default function TailPage({ id }) {
   if (loading) return <h3>Loading</h3>;
   if (error) return <ErrorComponent error={error.message} />;
   return (
-    <>
+    <div style={{background:"#93dbfb"}}>
       <LargeHeaderCard>
         <div>
           <h2>
@@ -102,6 +102,6 @@ export default function TailPage({ id }) {
       </LargeHeaderCard>
       <TitleItem>Previous Trips</TitleItem>
       <Trips tailNum={tailData.Slug} trips={tailData.trips}></Trips>
-    </>
+    </div>
   );
 }

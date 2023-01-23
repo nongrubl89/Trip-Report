@@ -1,9 +1,11 @@
-import CardItem from "../styles/CardItem";
-import { faPlane } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
+/* eslint-disable react/prop-types */
+import { faPlane } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import CardItem from '../styles/CardItem';
 
-export default function Tail({ tail }) {
+// eslint-disable-next-line react/prop-types
+export default function SingleTailCard({ tail }) {
   return (
     <CardItem>
       <Link href={`/tail/${tail.attributes.Slug}`}>

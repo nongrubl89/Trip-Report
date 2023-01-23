@@ -11,6 +11,7 @@ const LargeHeaderCard = styled.div`
   border-radius: 8px;
   white-space: pre-line;
   margin: 2em;
+  border-bottom: 25px #3c4c9f solid;
 `;
 
 export default LargeHeaderCard;

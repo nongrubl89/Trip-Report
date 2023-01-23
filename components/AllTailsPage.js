@@ -1,8 +1,11 @@
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
-import ErrorComponent from "./ErrorComponent";
-import Tail from "./SingleTailCard";
-import MasterGrid from "../styles/MasterGrid";
+/* eslint-disable react/prop-types */
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import ErrorComponent from './ErrorComponent';
+import SingleTailCard from './SingleTailCard';
+import MasterGrid from '../styles/MasterGrid';
+import CardItem from '../styles/CardItem';
+
 export const ALL_TAILS_QUERY = gql`
   query ALL_TAILS_QUERY {
     tailNumbers {
@@ -20,7 +23,7 @@ export const ALL_TAILS_QUERY = gql`
 `;
 
 export default function Tails({ tailsArray }) {
-  console.log("tails", tailsArray);
+  console.log('tails', tailsArray);
   const { data, error, loading } = useQuery(ALL_TAILS_QUERY);
   console.log(data?.tailNumbers?.data);
   console.log(error);
@@ -29,8 +32,9 @@ export default function Tails({ tailsArray }) {
   return (
     <MasterGrid>
       {data?.tailNumbers?.data.map((tail) => (
-        <Tail key={tail.id} tail={tail} />
+        <SingleTailCard key={tail.id} tail={tail} />
       ))}
+      <CardItem />
     </MasterGrid>
   );
 }

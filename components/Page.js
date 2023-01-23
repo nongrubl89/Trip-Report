@@ -17,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
     margin:0;
     font-size: 1.5rem;
     line-height:2;
+    background:#93dbfb;
   }
 
   a {
@@ -24,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
     color: black;
   }
   a:hover {
-    color:orange;
+    color:#3c4c9f;
   }
 
   button {

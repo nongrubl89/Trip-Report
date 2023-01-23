@@ -1,9 +1,12 @@
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
-import ErrorComponent from "./ErrorComponent";
-import LargeHeaderCard from "../styles/SingleTail";
-import Link from "next/link";
-import ButtonGrid from "../styles/ButtonGrid";
+import { useQuery, useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
+import Link from 'next/link';
+import Router from 'next/router';
+import ErrorComponent from './ErrorComponent';
+import LargeHeaderCard from '../styles/SingleTail';
+import ButtonGrid from '../styles/ButtonGrid';
+import { SINGLE_TAIL_QUERY } from './SingleTailPage';
+
 const SINGLE_TRIP_QUERY = gql`
   query SINGLE_TRIP_QUERY($uuid: String!) {
     trips(filters: { uuid: { eq: $uuid } }) {
@@ -17,20 +20,49 @@ const SINGLE_TRIP_QUERY = gql`
           Feedback
           StartDate
           EndDate
+          tail_number {
+            data {
+              id
+              attributes {
+                Slug
+              }
+            }
+          }
         }
       }
     }
   }
 `;
 
-export default function SingleTrip({ uuid }) {
-  console.log("uuid", uuid);
-  const { data, loading, error } = useQuery(SINGLE_TRIP_QUERY, {
-    variables: { uuid: uuid },
-  });
+const DELETE_TRIP_MUTATION = gql`
+  mutation deleteTrip($id: ID!) {
+    deleteTrip(id: $id) {
+      data {
+        id
+      }
+    }
+  }
+`;
 
+export default function SingleTrip({ uuid }) {
+  console.log('uuid', uuid);
+  const { data, loading, error } = useQuery(SINGLE_TRIP_QUERY, {
+    variables: { uuid },
+  });
+  console.log(data?.trips?.data[0]);
   const tripDetails = data?.trips?.data[0].attributes;
   console.log(tripDetails);
+  const slug = data?.trips?.data[0].attributes.tail_number.data.attributes.Slug;
+  const id = data?.trips?.data[0].id;
+  const [deleteTrip, { ldg, err, dta }] = useMutation(DELETE_TRIP_MUTATION, {
+    variables: { id },
+  });
+  const tripDelete = async () => {
+    const res = await deleteTrip({
+      refetchQueries: [{ query: SINGLE_TAIL_QUERY, variables: { Slug: slug } }],
+    }).catch(console.log(error));
+    Router.push({ pathname: `/tail/${slug}` });
+  };
   if (error) return <ErrorComponent error={error.message} />;
   if (loading) return <div>Loading...</div>;
   return (
@@ -42,7 +74,7 @@ export default function SingleTrip({ uuid }) {
         <h3>
           {tripDetails.StartDate} through {tripDetails.EndDate}
         </h3>
-        <hr></hr>
+        <hr />
         <p>
           <strong>Cabin Attendant:</strong> {tripDetails.CabinAttendantName}
         </p>
@@ -51,17 +83,18 @@ export default function SingleTrip({ uuid }) {
           {tripDetails.CateringDetails}
         </p>
       </div>
-      <div style={{ display: "grid" }}>
+      <div style={{ display: 'grid' }}>
         <p>
           <strong>Feedback from passengers:</strong>
-          {"\n"}
+          {'\n'}
           {tripDetails.Feedback}
         </p>
         <ButtonGrid alignItems="end" placeSelf="end">
-          <button>Delete</button>
-
+          <button type="button" onClick={tripDelete}>
+            Delete
+          </button>
           <Link href="#">
-            <button>Edit Trip Details</button>
+            <button type="button">Edit Trip Details</button>
           </Link>
         </ButtonGrid>
       </div>
