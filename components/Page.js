@@ -1,6 +1,5 @@
-import PropTypes from "prop-types";
-import styled, { createGlobalStyle } from "styled-components";
-import NavigationBar from "./Nav";
+import styled, { createGlobalStyle } from 'styled-components';
+import NavigationBar from './Nav';
 
 const GlobalStyles = createGlobalStyle`
 
@@ -47,7 +46,3 @@ export default function Page({ children }) {
     </div>
   );
 }
-
-Page.propTypes = {
-  children: PropTypes.any,
-};

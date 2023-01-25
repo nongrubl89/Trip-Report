@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 const HeroImage = styled.div`
   background-image: url(${(props) => props.image.src});

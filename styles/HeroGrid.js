@@ -27,7 +27,7 @@ const HeroGrid = styled.div`
     background-color: #93dbfb;
     justify-self: center;
     padding: 5em;
-    font-size: 1em;
+    font-size: 2em;
     animation: ${moveInRight} 1s ease 0.3s both;
 
     @media (max-width: 600px) {
@@ -37,6 +37,7 @@ const HeroGrid = styled.div`
   img {
     height: 20em;
     width: auto;
+    margin: 2em;
   }
 `;
 

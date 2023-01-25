@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useQuery, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import Link from 'next/link';
@@ -20,6 +21,12 @@ const SINGLE_TRIP_QUERY = gql`
           Feedback
           StartDate
           EndDate
+          PaxCount
+          CateringRequests
+          TripStatus
+          PassengerName {
+            PassengerName
+          }
           tail_number {
             data {
               id
@@ -51,7 +58,6 @@ export default function SingleTrip({ uuid }) {
   });
   console.log(data?.trips?.data[0]);
   const tripDetails = data?.trips?.data[0].attributes;
-  console.log(tripDetails);
   const slug = data?.trips?.data[0].attributes.tail_number.data.attributes.Slug;
   const id = data?.trips?.data[0].id;
   const [deleteTrip, { ldg, err, dta }] = useMutation(DELETE_TRIP_MUTATION, {
@@ -63,6 +69,9 @@ export default function SingleTrip({ uuid }) {
     }).catch(console.log(error));
     Router.push({ pathname: `/tail/${slug}` });
   };
+  const paxNames = tripDetails?.PassengerName.map((passenger) => (
+    <li>{passenger.PassengerName}</li>
+  ));
   if (error) return <ErrorComponent error={error.message} />;
   if (loading) return <div>Loading...</div>;
   return (
@@ -74,10 +83,18 @@ export default function SingleTrip({ uuid }) {
         <h3>
           {tripDetails.StartDate} through {tripDetails.EndDate}
         </h3>
+        <h3>
+          <strong>Trip Status</strong>:
+          {tripDetails.TripStatus ? ' Completed' : ' Scheduled'}
+        </h3>
         <hr />
         <p>
           <strong>Cabin Attendant:</strong> {tripDetails.CabinAttendantName}
         </p>
+        <p>
+          <strong>Passengers:</strong>
+        </p>
+        <ul>{paxNames}</ul>
         <p>
           <strong>Catering Details: </strong>
           {tripDetails.CateringDetails}
