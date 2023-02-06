@@ -1,11 +1,13 @@
-import Form from "../styles/Form";
-import ButtonGrid from "../styles/ButtonGrid";
-import useForm from "../lib/useForm";
-import { useQuery, useMutation } from "@apollo/client";
-import gql from "graphql-tag";
-import Router from "next/router";
-import { v4 as uuidv4 } from "uuid";
-import { SINGLE_TAIL_QUERY } from "./SingleTailPage";
+/* eslint-disable react/prop-types */
+import { useQuery, useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
+import Router from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
+import useForm from '../lib/useForm';
+import ButtonGrid from '../styles/ButtonGrid';
+import Form from '../styles/Form';
+import { SINGLE_TAIL_QUERY } from './SingleTailPage';
 
 const CREATE_TRIP_MUTATION = gql`
   mutation createTrip(
@@ -13,8 +15,9 @@ const CREATE_TRIP_MUTATION = gql`
     $EndDate: Date!
     $Routing: String!
     $CabinAttendantName: String!
-    $Feedback: String!
-    $CateringDetails: String!
+    $CateringRequests: String!
+    $PaxCount: Int!
+    $PassengerNames: [ComponentNamePaxNameInput]
     $uuid: String!
     $tail_number: ID!
   ) {
@@ -24,8 +27,9 @@ const CREATE_TRIP_MUTATION = gql`
         EndDate: $EndDate
         Routing: $Routing
         CabinAttendantName: $CabinAttendantName
-        Feedback: $Feedback
-        CateringDetails: $CateringDetails
+        PaxCount: $PaxCount
+        PassengerNames: $PassengerNames
+        CateringRequests: $CateringRequests
         uuid: $uuid
         tail_number: $tail_number
       }
@@ -36,8 +40,11 @@ const CREATE_TRIP_MUTATION = gql`
           EndDate
           Routing
           CabinAttendantName
-          Feedback
-          CateringDetails
+          PassengerNames {
+            PassengerName
+          }
+          CateringRequests
+          PaxCount
           uuid
           tail_number {
             data {
@@ -59,6 +66,7 @@ const TAIL_ID_QUERY = gql`
         id
         attributes {
           TailNumber
+          Capacity
         }
       }
     }
@@ -69,43 +77,81 @@ export default function NewTrip({ tail }) {
   const { loading, error, data } = useQuery(TAIL_ID_QUERY, {
     variables: { Slug: tail },
   });
+  const [paxCount, setPaxCount] = useState(0);
+  const [passengerInputs, setPassengerInputs] = useState([]);
+  const [passengerNames, setPassengerNames] = useState([]);
 
   const tailNumID = data?.tailNumbers?.data[0].id;
-  // const [count, setCount] = useState(1);
-  // console.log(tailNumID);
+  const capacity = data?.tailNumbers?.data[0].attributes.Capacity;
   const { inputs, handleChange, clearForm, resetForm } = useForm({
-    StartDate: "",
-    EndDate: "",
-    Routing: "",
-    CabinAttendantName: "",
-    Feedback: "",
-    CateringDetails: "",
+    StartDate: '',
+    EndDate: '',
+    Routing: '',
+    CabinAttendantName: '',
+    CateringRequests: '',
     tail_number: tailNumID,
   });
 
   const newUuid = uuidv4();
   const [createTrip, { ldg, err, dta }] = useMutation(CREATE_TRIP_MUTATION, {
-    variables: {
-      uuid: newUuid,
-      StartDate: inputs.StartDate,
-      EndDate: inputs.EndDate,
-      Routing: inputs.Routing,
-      CabinAttendantName: inputs.CabinAttendantName,
-      Feedback: inputs.Feedback,
-      CateringDetails: inputs.CateringDetails,
-      tail_number: inputs.tail_number,
-    },
     refetchQueries: [{ query: SINGLE_TAIL_QUERY, variables: { Slug: tail } }],
   });
+
+  const handleInputValue = (event) => {
+    const { value } = event.target;
+    setPaxCount(value);
+    if (paxCount >= 0) {
+      const generateArrays = Array.from(
+        Array(Number(event.target.value)).keys()
+      );
+      console.log('g', generateArrays);
+      setPassengerInputs(generateArrays);
+    } else {
+      setPassengerInputs([]);
+    }
+  };
+
+  const addNameInput = () => {
+    return passengerInputs.map((pax, i) => (
+      <label htmlFor="PassengerName" key={i}>
+        Passenger {pax + 1}
+        <input
+          type="text"
+          className="form-control"
+          name="PassengerName"
+          onBlur={handlePaxNames}
+        />
+      </label>
+    ));
+  };
+
+  const handlePaxNames = (e) => {
+    console.log(e.target.value);
+    const passenger = {};
+    passenger.PassengerName = e.target.value;
+    passengerNames.push(passenger);
+    console.log(passengerNames);
+  };
   return (
     <div>
       <Form
         onSubmit={async (e) => {
           e.preventDefault();
-          console.log(inputs);
-          const res = await createTrip();
+          console.log('click');
+          const res = await createTrip({
+            variables: {
+              uuid: newUuid,
+              StartDate: inputs.StartDate,
+              EndDate: inputs.EndDate,
+              Routing: inputs.Routing,
+              CabinAttendantName: inputs.CabinAttendantName,
+              CateringRequests: inputs.CateringRequests,
+              tail_number: inputs.tail_number,
+              PaxCount: parseInt(paxCount),
+              PassengerNames: passengerNames,
+            },
+          });
           console.log(res);
-          clearForm();
           Router.push({ pathname: `/tail/${tail}` });
         }}
       >
@@ -149,43 +195,51 @@ export default function NewTrip({ tail }) {
               onChange={handleChange}
             />
           </label>
-          <label htmlFor="CabinAttendantName">
-            Cabin Attendant Name
-            <input
-              required
-              type="text"
-              id="CabinAttendantName"
-              name="CabinAttendantName"
-              value={inputs.CabinAttendantName}
-              onChange={handleChange}
-            />
-          </label>
-          <label htmlFor="CateringDetails">
-            Catering Details
+          <ButtonGrid>
+            <label htmlFor="CabinAttendantName">
+              Cabin Attendant Name
+              <input
+                required
+                type="text"
+                id="CabinAttendantName"
+                name="CabinAttendantName"
+                value={inputs.CabinAttendantName}
+                onChange={handleChange}
+              />
+            </label>
+            <label htmlFor="quantity">
+              Passenger Count:
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                max={capacity}
+                value={paxCount}
+                onChange={handleInputValue}
+              />
+            </label>
+          </ButtonGrid>
+          <ButtonGrid>
+            {passengerInputs.length ? addNameInput() : null}
+          </ButtonGrid>
+          <label htmlFor="CateringRequests">
+            Catering Requests
             <textarea
               type="text"
-              id="CateringDetails"
-              name="CateringDetails"
-              placeholder="Please explain catering details for each leg of the trip"
-              value={inputs.CateringDetails}
-              onChange={handleChange}
-            />
-          </label>
-          <label htmlFor="Feedback">
-            Feedback
-            <textarea
-              type="text"
-              id="Feedback"
-              name="Feedback"
-              placeholder="Please give any feedback from passengers on service, catering, etc"
-              value={inputs.Feedback}
+              id="CateringRequests"
+              name="CateringRequests"
+              placeholder="Please list any catering requests for the trip"
+              value={inputs.CateringRequests}
               onChange={handleChange}
             />
           </label>
 
           <ButtonGrid>
             <button type="submit">Submit</button>
-            <button onClick={clearForm}>Clear Form</button>
+            <button type="button" onClick={clearForm}>
+              Clear Form
+            </button>
           </ButtonGrid>
         </fieldset>
       </Form>

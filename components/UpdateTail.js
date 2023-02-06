@@ -1,11 +1,12 @@
-import { SINGLE_TAIL_QUERY } from "./SingleTailPage";
-import { useQuery, useMutation } from "@apollo/client";
-import ErrorComponent from "./ErrorComponent";
-import ButtonGrid from "../styles/ButtonGrid";
-import Form from "../styles/Form";
-import useForm from "../lib/useForm";
-import gql from "graphql-tag";
-import Router from "next/router";
+/* eslint-disable react/prop-types */
+import { useQuery, useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
+import Router from 'next/router';
+import { SINGLE_TAIL_QUERY } from './SingleTailPage';
+import ErrorComponent from './ErrorComponent';
+import ButtonGrid from '../styles/ButtonGrid';
+import Form from '../styles/Form';
+import useForm from '../lib/useForm';
 
 const UPDATE_TAIL_MUTATION = gql`
   mutation updateTailNumber(
@@ -182,7 +183,9 @@ export default function UpdateTail({ tail }) {
 
           <ButtonGrid>
             <button type="submit">Submit</button>
-            <button onClick={clearForm}>Clear Form</button>
+            <button type="button" onClick={clearForm}>
+              Clear Form
+            </button>
           </ButtonGrid>
         </fieldset>
       </Form>

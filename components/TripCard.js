@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import CardItem from '../styles/CardItem';
 import dateConversion from '../lib/dateConversion';
 import ButtonGrid from '../styles/ButtonGrid';
 
 export default function TripCard({ trip, tailNum }) {
-  const router = useRouter();
   const t = trip.attributes;
   console.log(typeof t.StartDate);
   function isDateBeforeToday(date) {
@@ -24,9 +22,9 @@ export default function TripCard({ trip, tailNum }) {
       </h2>
       {isDateBeforeToday(t.EndDate) && trip.attributes.TripStatus === false ? (
         <ButtonGrid>
-          <button type="button">
-            <Link href="#">Complete Trip Debrief</Link>
-          </button>
+          <Link href={`/edittrip/${trip.attributes.uuid}`}>
+            <button type="button">Complete Trip Debrief</button>
+          </Link>
         </ButtonGrid>
       ) : (
         ''

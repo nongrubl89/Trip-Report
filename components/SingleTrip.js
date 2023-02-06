@@ -8,7 +8,7 @@ import LargeHeaderCard from '../styles/SingleTail';
 import ButtonGrid from '../styles/ButtonGrid';
 import { SINGLE_TAIL_QUERY } from './SingleTailPage';
 
-const SINGLE_TRIP_QUERY = gql`
+export const SINGLE_TRIP_QUERY = gql`
   query SINGLE_TRIP_QUERY($uuid: String!) {
     trips(filters: { uuid: { eq: $uuid } }) {
       data {
@@ -24,7 +24,7 @@ const SINGLE_TRIP_QUERY = gql`
           PaxCount
           CateringRequests
           TripStatus
-          PassengerName {
+          PassengerNames {
             PassengerName
           }
           tail_number {
@@ -69,7 +69,8 @@ export default function SingleTrip({ uuid }) {
     }).catch(console.log(error));
     Router.push({ pathname: `/tail/${slug}` });
   };
-  const paxNames = tripDetails?.PassengerName.map((passenger) => (
+  console.log(tripDetails?.PassengerNames);
+  const paxNames = tripDetails?.PassengerNames.map((passenger) => (
     <li>{passenger.PassengerName}</li>
   ));
   if (error) return <ErrorComponent error={error.message} />;
