@@ -1,35 +1,85 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable react/prop-types */
 import { useQuery, useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
 import { SINGLE_TRIP_QUERY } from './SingleTrip';
 import Form from '../styles/Form';
 import ButtonGrid from '../styles/ButtonGrid';
 import useForm from '../lib/useForm';
 
+const UPDATE_TRIP_MUTATION = gql`
+  mutation updateTrip(
+    $id: ID!
+    $StartDate: Date!
+    $EndDate: Date!
+    $CabinAttendantName: String!
+    $Routing: String!
+    $CateringDetails: String!
+    $Feedback: String!
+  ) {
+    updateTrip(
+      id: $id
+      data: {
+        StartDate: $StartDate
+        EndDate: $EndDate
+        CabinAttendantName: $CabinAttendantName
+        Routing: $Routing
+        CateringDetails: $CateringDetails
+        Feedback: $Feedback
+      }
+    ) {
+      data {
+        attributes {
+          StartDate
+          EndDate
+          CabinAttendantName
+          CateringDetails
+          Feedback
+        }
+      }
+    }
+  }
+`;
+
 export default function UpdateTrip({ uuid }) {
   const { data, loading, error } = useQuery(SINGLE_TRIP_QUERY, {
     variables: { uuid },
   });
+  const [
+    updateTrip,
+    { data: updateData, error: updateError, loading: updateLoading },
+  ] = useMutation(UPDATE_TRIP_MUTATION);
   const tripData = data?.trips?.data[0]?.attributes;
-  console.log(tripData);
+  console.log(data?.trips?.data);
   const { inputs, handleChange, clearForm, resetForm } = useForm({
     StartDate: `${tripData?.StartDate}`,
-    EndDate: `${tripData.EndDate}`,
+    EndDate: `${tripData?.EndDate}`,
     Routing: `${tripData?.Routing}`,
     CabinAttendantName: tripData?.CabinAttendantName,
-    Feedback: `${tripData?.Feedback}`,
-    CateringDetails: `${tripData.CateringDetails}`,
+    Feedback: '',
+    CateringDetails: '',
   });
   return (
     <div>
       <Form
-      // onSubmit={async (e) => {
-      //   e.preventDefault();
-      //   console.log(inputs);
-      //   //   const res = await createTrip();
-      //   console.log(res);
-      //   clearForm();
-      // //   Router.push({ pathname: `/tail/${tail}` });
-      // }}
+        onSubmit={async (e) => {
+          e.preventDefault();
+          console.log(inputs);
+          const res = await updateTrip({
+            variables: {
+              id: data.trips.data.id,
+              StartDate: inputs.StartDate,
+              EndDate: inputs.EndDate,
+              Routing: inputs.Routing,
+              CabinAttendantName: inputs.CabinAttendantName,
+              Feedback: inputs.Feedback,
+              CateringDetails: inputs.CateringDetails,
+            },
+          });
+          console.log(res);
+          clearForm();
+          //   Router.push({ pathname: `/tail/${tail}` });
+        }}
       >
         <fieldset>
           <h1>Review Trip</h1>
@@ -82,13 +132,17 @@ export default function UpdateTrip({ uuid }) {
               onChange={handleChange}
             />
           </label>
+          <p>
+            <strong>Catering Requests: </strong>
+            {tripData?.CateringRequests}
+          </p>
           <label htmlFor="CateringDetails">
             Catering Details
             <textarea
               type="text"
               id="CateringDetails"
               name="CateringDetails"
-              placeholder="Please explain catering details for each leg of the trip"
+              placeholder="Please explain catering details for each leg of the trip and how they differed from any requested items"
               value={inputs.CateringDetails}
               onChange={handleChange}
             />

@@ -97,16 +97,24 @@ export default function SingleTrip({ uuid }) {
         </p>
         <ul>{paxNames}</ul>
         <p>
-          <strong>Catering Details: </strong>
-          {tripDetails.CateringDetails}
+          <strong>Catering Requests: </strong>
+          {tripDetails.CateringRequests}
         </p>
       </div>
+      {tripDetails.TripStatus ? (
+        <div>
+          <p>
+            <strong>Catering Details: </strong>
+            {tripDetails.CateringDetails}
+          </p>
+          <p>
+            <strong>Feedback from passengers:</strong>
+            {'\n'}
+            {tripDetails.Feedback}
+          </p>
+        </div>
+      ) : null}
       <div style={{ display: 'grid' }}>
-        <p>
-          <strong>Feedback from passengers:</strong>
-          {'\n'}
-          {tripDetails.Feedback}
-        </p>
         <ButtonGrid alignItems="end" placeSelf="end">
           <button type="button" onClick={tripDelete}>
             Delete

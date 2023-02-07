@@ -20,7 +20,7 @@ export default function TripCard({ trip, tailNum }) {
       <h2>
         {dateConversion(t.StartDate)}-{dateConversion(t.EndDate)}
       </h2>
-      {isDateBeforeToday(t.EndDate) && trip.attributes.TripStatus === false ? (
+      {isDateBeforeToday(t.StartDate) && trip.attributes.TripStatus === true ? (
         <ButtonGrid>
           <Link href={`/edittrip/${trip.attributes.uuid}`}>
             <button type="button">Complete Trip Debrief</button>

@@ -8,6 +8,7 @@ import useForm from '../lib/useForm';
 import ButtonGrid from '../styles/ButtonGrid';
 import Form from '../styles/Form';
 import { SINGLE_TAIL_QUERY } from './SingleTailPage';
+import isDateBeforeToday from '../lib/datePrior';
 
 const CREATE_TRIP_MUTATION = gql`
   mutation createTrip(
@@ -18,6 +19,7 @@ const CREATE_TRIP_MUTATION = gql`
     $CateringRequests: String!
     $PaxCount: Int!
     $PassengerNames: [ComponentNamePaxNameInput]
+    $TripStatus: Boolean!
     $uuid: String!
     $tail_number: ID!
   ) {
@@ -30,6 +32,7 @@ const CREATE_TRIP_MUTATION = gql`
         PaxCount: $PaxCount
         PassengerNames: $PassengerNames
         CateringRequests: $CateringRequests
+        TripStatus: $TripStatus
         uuid: $uuid
         tail_number: $tail_number
       }
@@ -46,6 +49,7 @@ const CREATE_TRIP_MUTATION = gql`
           CateringRequests
           PaxCount
           uuid
+          TripStatus
           tail_number {
             data {
               attributes {
@@ -132,12 +136,17 @@ export default function NewTrip({ tail }) {
     passengerNames.push(passenger);
     console.log(passengerNames);
   };
+
   return (
     <div>
       <Form
         onSubmit={async (e) => {
           e.preventDefault();
           console.log('click');
+          let tripStatus;
+          if (isDateBeforeToday(inputs.StartDate)) {
+            tripStatus = true;
+          } else tripStatus = false;
           const res = await createTrip({
             variables: {
               uuid: newUuid,
@@ -149,6 +158,7 @@ export default function NewTrip({ tail }) {
               tail_number: inputs.tail_number,
               PaxCount: parseInt(paxCount),
               PassengerNames: passengerNames,
+              TripStatus: tripStatus,
             },
           });
           console.log(res);
