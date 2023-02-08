@@ -32,6 +32,8 @@ export const SINGLE_TAIL_QUERY = gql`
                 Routing
                 TripStatus
                 uuid
+                Feedback
+                DebriefComplete
               }
             }
           }

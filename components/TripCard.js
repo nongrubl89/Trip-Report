@@ -12,15 +12,16 @@ export default function TripCard({ trip, tailNum }) {
   }
   console.log(isDateBeforeToday(t.StartDate));
   console.log(trip.attributes.TripStatus);
+  console.log(trip.attributes.DebriefComplete);
   return (
-    <CardItem height="max-content">
+    <CardItem>
       <Link href={`/trip/${trip.attributes.uuid}`}>
         <h2>{t.Routing}</h2>
       </Link>
       <h2>
         {dateConversion(t.StartDate)}-{dateConversion(t.EndDate)}
       </h2>
-      {isDateBeforeToday(t.StartDate) && trip.attributes.TripStatus === true ? (
+      {!trip.attributes.DebriefComplete && isDateBeforeToday(t.EndDate) ? (
         <ButtonGrid>
           <Link href={`/edittrip/${trip.attributes.uuid}`}>
             <button type="button">Complete Trip Debrief</button>

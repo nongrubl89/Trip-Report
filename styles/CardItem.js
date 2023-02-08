@@ -7,7 +7,7 @@ const CardItem = styled.div`
   padding: 2em;
   border-radius: 8px;
   margin: 2em;
-  height: ${(props) => props.height || '200px'};
+  height: ${(props) => props.height || '220px'};
   border-bottom: 25px #3c4c9f solid;
   justify-content: ${(props) => props.justifyContent || 'left'};
   align-items: ${(props) => props.alignItems || ''};
