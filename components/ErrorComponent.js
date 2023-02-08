@@ -1,4 +1,4 @@
-import ErrorStyle from "../styles/ErrorStyle";
+import ErrorStyle from '../styles/ErrorStyle';
 
 export default function ErrorComponent(props) {
   return (

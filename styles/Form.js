@@ -32,16 +32,6 @@ const Form = styled.form`
       border-color: var(--red);
     }
   }
-  /* button,
-  input[type="submit"] {
-    width: auto;
-    background: red;
-    color: white;
-    border: 0;
-    font-size: 1.5rem;
-    font-weight: 300;
-    padding: 2rem;
-  } */
 `;
 
 export default Form;

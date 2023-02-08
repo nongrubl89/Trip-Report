@@ -112,18 +112,25 @@ export default function SingleTrip({ uuid }) {
             {'\n'}
             {tripDetails.Feedback}
           </p>
+          <ButtonGrid alignItems="end" placeSelf="end">
+            <button type="button" onClick={tripDelete}>
+              Delete
+            </button>
+            <Link href={`/tail/${slug}`}>
+              <button type="button">Back to Tail</button>
+            </Link>
+          </ButtonGrid>
         </div>
-      ) : null}
-      <div style={{ display: 'grid' }}>
-        <ButtonGrid alignItems="end" placeSelf="end">
+      ) : (
+        <ButtonGrid alignItems="end" placeSelf="end" justifyContent="flexend">
           <button type="button" onClick={tripDelete}>
-            Delete
+            Cancel Trip
           </button>
-          <Link href="#">
-            <button type="button">Edit Trip Details</button>
+          <Link href={`/tail/${slug}`}>
+            <button type="button">Back to Tail</button>
           </Link>
         </ButtonGrid>
-      </div>
+      )}
     </LargeHeaderCard>
   );
 }

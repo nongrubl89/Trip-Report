@@ -7,6 +7,7 @@ const MasterGrid = styled.div`
   justify-content: ${(props) => props.justifyContent || 'left'};
   height: max-content;
   background: #93dbfb;
+  width: 75%;
   h3 {
     margin: 2.5em;
   }
