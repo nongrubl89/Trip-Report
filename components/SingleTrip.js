@@ -56,8 +56,7 @@ export default function SingleTrip({ uuid }) {
   const { data, loading, error } = useQuery(SINGLE_TRIP_QUERY, {
     variables: { uuid },
   });
-  console.log(data?.trips?.data[0]);
-  const tripDetails = data?.trips?.data[0].attributes;
+  const tripDetails = data?.trips?.data[0]?.attributes;
   const slug = data?.trips?.data[0].attributes.tail_number.data.attributes.Slug;
   const id = data?.trips?.data[0].id;
   const [deleteTrip, { ldg, err, dta }] = useMutation(DELETE_TRIP_MUTATION, {

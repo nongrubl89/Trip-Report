@@ -35,7 +35,7 @@ export default function UpdateTrip({ uuid }) {
     { data: updateData, error: updateError, loading: updateLoading },
   ] = useMutation(UPDATE_TRIP_MUTATION);
   const tripData = data?.trips?.data[0]?.attributes;
-  console.log(data?.trips?.data[0].id);
+  console.log(data?.trips?.data[0]);
   const { inputs, handleChange, clearForm, resetForm } = useForm({
     Feedback: '',
     CateringDetails: '',

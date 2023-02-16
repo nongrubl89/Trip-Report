@@ -29,9 +29,9 @@
 //   }
 // }
 
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import { ServerStyleSheet } from "styled-components";
-import Script from "next/script";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
+import Script from 'next/script';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -59,11 +59,15 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
+
   render() {
     return (
       <Html lang="en">
         <Head>
-          <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@200;300;400;500&display=swap"
+            rel="stylesheet"
+          />
           <Script
             id="googlemaps"
             type="text/javascript"

@@ -147,6 +147,7 @@ export default function NewTrip({ tail }) {
           if (isDateBeforeToday(inputs.StartDate)) {
             tripStatus = true;
           } else tripStatus = false;
+          console.log(passengerNames);
           const res = await createTrip({
             variables: {
               uuid: newUuid,
@@ -162,7 +163,7 @@ export default function NewTrip({ tail }) {
             },
           });
           console.log(res);
-          Router.push({ pathname: `/tail/${tail}` });
+          // Router.push({ pathname: `/tail/${tail}` });
         }}
       >
         <fieldset>
