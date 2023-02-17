@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import { useAuthToken } from '../lib/withAuth';
-import { useUserQuery } from '../lib/useUser';
+import { useUser } from '../lib/useUser';
 import { useLoginMutation } from '../lib/useLogin';
 
 const LOGIN_MUTATION = gql`
@@ -29,7 +29,7 @@ export default function Hero() {
     loginMutation(username, password);
   }
   const [authToken] = useAuthToken();
-  const userData = useUserQuery();
+  const userData = useUser();
   if (userData.data && authToken) {
     return <div>You're Logged In</div>;
   }
