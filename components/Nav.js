@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { useAuthToken } from '../lib/withAuth';
+import { useAuthToken, useLogout } from '../lib/withAuth';
 import { useUser } from '../lib/useUser';
 
 export default function NavigationBar() {
@@ -15,6 +15,8 @@ export default function NavigationBar() {
     setAToken(authToken);
     setUData(userData);
   }, []);
+
+  const logout = useLogout();
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -34,7 +36,11 @@ export default function NavigationBar() {
                   <NavDropdown.Item href="/account">
                     My Account
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                  <NavDropdown.Item href="/logout">
+                    <button type="button" onClick={logout}>
+                      Logout
+                    </button>
+                  </NavDropdown.Item>
                 </NavDropdown>
               </>
             ) : (
