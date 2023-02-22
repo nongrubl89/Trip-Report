@@ -4,12 +4,11 @@ import { useState } from 'react';
 // import { useAuth } from '../lib/withData';
 import gql from 'graphql-tag';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useMutation } from '@apollo/client';
 import Router from 'next/router';
+import { toast, ToastContainer } from 'react-toastify';
 import { useAuthToken } from '../lib/withAuth';
 import { useUser } from '../lib/useUser';
-import { useLoginMutation } from '../lib/useLogin';
 import MasterGrid from '../styles/MasterGrid';
 import CardItem from '../styles/CardItem';
 import Form from '../styles/Form';
@@ -31,7 +30,7 @@ const REGISTER_MUTATION = gql`
   }
 `;
 
-export default function Login() {
+export default function Register() {
   const { inputs, handleChange, clearForm, resetForm } = useForm({
     username: '',
     email: '',
@@ -43,6 +42,17 @@ export default function Login() {
 
   const [authToken] = useAuthToken();
   const userData = useUser();
+  const success = () =>
+    toast('Thanks for registering! You can login now.', {
+      position: 'bottom-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
   if (userData.data && authToken) {
     return <div>You're Logged In</div>;
   }
@@ -69,6 +79,7 @@ export default function Login() {
             const res = await register();
             console.log(res);
             clearForm();
+            success();
             Router.push({ pathname: `/login` });
           }}
           padding="0px"

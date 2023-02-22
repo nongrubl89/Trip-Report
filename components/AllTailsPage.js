@@ -34,7 +34,6 @@ export default function Tails({ tailsArray }) {
       {data?.tailNumbers?.data.map((tail) => (
         <SingleTailCard key={tail.id} tail={tail} />
       ))}
-      <CardItem />
     </MasterGrid>
   );
 }

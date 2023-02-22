@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import { NonceProvider } from 'react-select';
 import { useAuthToken, useLogout } from '../lib/withAuth';
 import { useUser } from '../lib/useUser';
 
@@ -33,14 +34,25 @@ export default function NavigationBar() {
                   title={userData?.data?.me?.username}
                   id="navbarScrollingDropdown"
                 >
-                  <NavDropdown.Item href="/account">
+                  <NavDropdown.Item
+                    href="/account"
+                    style={{ fontSize: '1.5em' }}
+                  >
                     My Account
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/logout">
-                    <button type="button" onClick={logout}>
-                      Logout
-                    </button>
-                  </NavDropdown.Item>
+                  <button
+                    type="button"
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      fontFamily: " 'Sofia Sans', sans-serif",
+                      padding: '0',
+                      fontSize: '1.5em',
+                    }}
+                    onClick={logout}
+                  >
+                    <NavDropdown.Item href="#">Logout</NavDropdown.Item>
+                  </button>
                 </NavDropdown>
               </>
             ) : (

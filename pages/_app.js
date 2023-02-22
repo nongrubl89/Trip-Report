@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Component } from 'react';
-import Router from 'next/router';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/client';
+import { ToastContainer } from 'react-toastify';
 import Page from '../components/Page';
-import { AuthProvider, useApollo } from '../lib/withData';
+import { useApollo } from '../lib/withData';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const theme = {
   colors: {
@@ -13,26 +14,24 @@ const theme = {
   },
 };
 
-// eslint-disable-next-line no-shadow
-// export default function MyApp({ Component, pageProps }) {
-//   // const apolloClient = useApollo(pageProps);
-//   return (
-//     <AuthProvider>
-//       <ThemeProvider theme={theme}>
-//         <Page>
-//           <Component {...pageProps} />
-//         </Page>
-//       </ThemeProvider>
-//     </AuthProvider>
-//   );
-// }
-
 export default function MyApp({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
   return (
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
         <Page>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
           <Component {...pageProps} />
         </Page>
       </ThemeProvider>
