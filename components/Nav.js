@@ -14,7 +14,7 @@ export default function NavigationBar() {
   useEffect(() => {
     setAToken(authToken);
     setUData(userData);
-  }, []);
+  }, [authToken, userData]);
 
   const logout = useLogout();
 

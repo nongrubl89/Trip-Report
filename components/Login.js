@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 // import { useAuth } from '../lib/withData';
 import gql from 'graphql-tag';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useAuthToken } from '../lib/withAuth';
 import { useUser } from '../lib/useUser';
 import { useLoginMutation } from '../lib/useLogin';
@@ -41,7 +44,10 @@ export default function Login() {
         alignItems="center"
       >
         <Image src={WindownoBG} height="1em" width="1em" />
-        <h3 style={{ textAlign: 'center' }}>Sign In</h3>
+        <h3 style={{ textAlign: 'center', margin: '1em' }}>Sign In</h3>
+        <h3 style={{ textAlign: 'center', margin: '1em' }}>
+          <Link href="/register">Not registered? Create an account!</Link>
+        </h3>
         <Form onSubmit={onSubmit} padding="0px">
           <label htmlFor="Username">
             Username
