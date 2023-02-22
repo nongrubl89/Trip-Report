@@ -1,7 +1,6 @@
-import Link from 'next/link';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { NonceProvider } from 'react-select';
+// import { NonceProvider } from 'react-select';
 import { useAuthToken, useLogout } from '../lib/withAuth';
 import { useUser } from '../lib/useUser';
 

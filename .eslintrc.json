@@ -1,5 +1,5 @@
 {
-  "extends": ["wesbos", "plugin:prettier/recommended"],
+  "extends": ["wesbos", "plugin:prettier/recommended","next/core-web-vitals"],
   "env": {
     "browser": true,
     "es6": true,

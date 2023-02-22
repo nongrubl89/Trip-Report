@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable react/prop-types */
 import { useQuery, useMutation } from '@apollo/client';

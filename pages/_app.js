@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
 import { Component } from 'react';
 import { ThemeProvider } from 'styled-components';

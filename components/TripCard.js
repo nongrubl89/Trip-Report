@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import Link from 'next/link';
 import CardItem from '../styles/CardItem';

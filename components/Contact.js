@@ -31,7 +31,12 @@ export default function Contact() {
         justifyContent="center"
         alignItems="center"
       >
-        <Image src={WindownoBG} height="1em" width="1em" />
+        <Image
+          src={WindownoBG}
+          height="1em"
+          width="1em"
+          alt="Airplane Window"
+        />
         {!submitted ? (
           <>
             <h3 style={{ textAlign: 'center' }}>
@@ -93,7 +98,7 @@ export default function Contact() {
           </>
         ) : (
           <div>
-            Thanks for getting in touch, {info.Name}. We'll get back to you as
+            Thanks for getting in touch, {info.Name}. Well get back to you as
             soon as possible! Happy flying!
           </div>
         )}

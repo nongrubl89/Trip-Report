@@ -54,7 +54,7 @@ export default function Register() {
       theme: 'light',
     });
   if (userData.data && authToken) {
-    return <div>You're Logged In</div>;
+    return <div>Youre Logged In</div>;
   }
   return (
     <MasterGrid justifyContent="center">

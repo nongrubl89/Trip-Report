@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useQuery, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -69,8 +70,8 @@ export default function SingleTrip({ uuid }) {
     Router.push({ pathname: `/tail/${slug}` });
   };
   console.log(tripDetails?.PassengerNames);
-  const paxNames = tripDetails?.PassengerNames.map((passenger) => (
-    <li>{passenger.PassengerName}</li>
+  const paxNames = tripDetails?.PassengerNames.map((passenger, i) => (
+    <li key={i}>{passenger.PassengerName}</li>
   ));
   if (error) return <ErrorComponent error={error.message} />;
   if (loading) return <div>Loading...</div>;

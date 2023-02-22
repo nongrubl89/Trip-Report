@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <>
       <HeroGrid>
-        <Image src={OpenWindow} height="8em" width="8em" />
+        <Image src={OpenWindow} alt="AirplaneWindow" height="8em" width="8em" />
         <HeroText>
           {' '}
           <h1>

@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import Image from 'next/image';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { IconGrid } from '../styles/IconGrid';
 import { IconWithText } from '../styles/IconWithText';
 import Airplane from '../public/images/Airplane.png';
@@ -72,8 +72,8 @@ const IconCard = (props) => {
 const IconCardGrid = () => {
   return (
     <IconGrid>
-      {icons.map((icon) => {
-        return <IconCard icon={icon} />;
+      {icons.map((icon, i) => {
+        return <IconCard key={i} icon={icon} />;
       })}
     </IconGrid>
   );

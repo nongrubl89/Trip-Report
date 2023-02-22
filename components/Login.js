@@ -37,7 +37,7 @@ export default function Login() {
   const [authToken] = useAuthToken();
   const userData = useUser();
   if (userData.data && authToken) {
-    return <div>You're Logged In</div>;
+    return <div>Youre Logged In</div>;
   }
   return (
     <>
@@ -48,7 +48,12 @@ export default function Login() {
           justifyContent="center"
           alignItems="center"
         >
-          <Image src={WindownoBG} height="1em" width="1em" />
+          <Image
+            src={WindownoBG}
+            height="1em"
+            width="1em"
+            alt="Airplane window"
+          />
           <h3 style={{ textAlign: 'center', margin: '1em' }}>Sign In</h3>
           <h3 style={{ textAlign: 'center', margin: '1em' }}>
             <Link href="/register">Not registered? Create an account!</Link>

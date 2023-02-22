@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import ErrorComponent from './ErrorComponent';
 import SingleTailCard from './SingleTailCard';
 import MasterGrid from '../styles/MasterGrid';
-import CardItem from '../styles/CardItem';
 
 export const ALL_TAILS_QUERY = gql`
   query ALL_TAILS_QUERY {
