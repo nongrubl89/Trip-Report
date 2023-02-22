@@ -1,5 +1,5 @@
-import TailPage from "../../components/SingleTailPage";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
+import TailPage from '../../components/SingleTailPage';
 
 export default function SingleTailPage({ query }) {
   const router = useRouter();

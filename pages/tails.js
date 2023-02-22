@@ -1,4 +1,4 @@
-import Tails from "../components/AllTailsPage";
+import Tails from '../components/AllTailsPage';
 
 export default function TailsPage() {
   return (

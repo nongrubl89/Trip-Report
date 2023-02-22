@@ -1,5 +1,5 @@
-import NewTrip from "../../components/NewTrip";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from 'next/dist/client/router';
+import NewTrip from '../../components/NewTrip';
 
 export default function NewTripPage() {
   const query = useRouter();
