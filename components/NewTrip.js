@@ -164,7 +164,7 @@ export default function NewTrip({ tail }) {
             },
           });
           console.log(res);
-          // Router.push({ pathname: `/tail/${tail}` });
+          Router.push({ pathname: `/tail/${tail}` });
         }}
       >
         <fieldset>
