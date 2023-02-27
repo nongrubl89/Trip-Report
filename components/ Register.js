@@ -1,5 +1,6 @@
-/* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-unused-vars */
+// /* eslint-disable react/jsx-no-bind */
+// /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 // import { useAuth } from '../lib/withData';
 import gql from 'graphql-tag';
@@ -54,7 +55,7 @@ export default function Register() {
       theme: 'light',
     });
   if (userData.data && authToken) {
-    return <div>Youre Logged In</div>;
+    return <div>You&apos;re Logged In</div>;
   }
   return (
     <MasterGrid justifyContent="center">
@@ -75,12 +76,12 @@ export default function Register() {
         <Form
           onSubmit={async (e) => {
             e.preventDefault();
-            console.log('click');
+            console.log(inputs);
             const res = await register();
             console.log(res);
-            clearForm();
-            success();
-            Router.push({ pathname: `/login` });
+            // clearForm();
+            // success();
+            // Router.push({ pathname: `/login` });
           }}
           padding="0px"
         >

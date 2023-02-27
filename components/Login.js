@@ -25,13 +25,16 @@ const LOGIN_MUTATION = gql`
 `;
 
 export default function Login() {
-  const [loginMutation, loginMutationResults] = useLoginMutation();
+  const [login, { data, loading, error }] = useLoginMutation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-    loginMutation(username, password);
+    const res = await login(username, password);
+    // if (error) setErrorMessage(error.message);
+    console.log(res);
     Router.push({ pathname: `/tails` });
   }
   const [authToken] = useAuthToken();
@@ -39,6 +42,8 @@ export default function Login() {
   if (userData.data && authToken) {
     return <div>Youre Logged In</div>;
   }
+  if (loading) return <div> loading</div>;
+  if (error) return <div>{error.response}</div>;
   return (
     <>
       {/* Same as */}
@@ -58,9 +63,10 @@ export default function Login() {
           <h3 style={{ textAlign: 'center', margin: '1em' }}>
             <Link href="/register">Not registered? Create an account!</Link>
           </h3>
+          <h2>{errorMessage}</h2>
           <Form onSubmit={onSubmit} padding="0px">
             <label htmlFor="Username">
-              Username
+              Email Address
               <input
                 required
                 type="text"
@@ -70,8 +76,8 @@ export default function Login() {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </label>
-            <label htmlFor="EmailAddress">
-              Email Address
+            <label htmlFor="password">
+              Password
               <input
                 required
                 type="password"

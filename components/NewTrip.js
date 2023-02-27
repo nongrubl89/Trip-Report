@@ -10,6 +10,7 @@ import ButtonGrid from '../styles/ButtonGrid';
 import Form from '../styles/Form';
 import { SINGLE_TAIL_QUERY } from './SingleTailPage';
 import isDateBeforeToday from '../lib/datePrior';
+import ErrorComponent from './ErrorComponent';
 
 const CREATE_TRIP_MUTATION = gql`
   mutation createTrip(
@@ -138,6 +139,8 @@ export default function NewTrip({ tail }) {
     console.log(passengerNames);
   };
 
+  if (loading) return <h3>Loading</h3>;
+  if (error) return <ErrorComponent error={error.message} />;
   return (
     <div>
       <Form

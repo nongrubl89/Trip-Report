@@ -41,6 +41,9 @@ export default function UpdateTrip({ uuid }) {
     Feedback: '',
     CateringDetails: '',
   });
+  const paxNames = tripData?.PassengerNames.map((passenger, i) => (
+    <li key={i}>{passenger.PassengerName}</li>
+  ));
   if (loading) {
     <div>Loading</div>;
   }
@@ -68,7 +71,7 @@ export default function UpdateTrip({ uuid }) {
             <p>
               <strong>Passengers:</strong>
             </p>
-            {/* <ul>{paxNames}</ul> */}
+            <ul>{paxNames}</ul>
             <p>
               <strong>Catering Requests: </strong>
               {tripData?.CateringRequests}

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled, { createGlobalStyle } from 'styled-components';
 import NavigationBar from './Nav';
 
