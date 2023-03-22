@@ -79,9 +79,9 @@ export default function Register() {
             console.log(inputs);
             const res = await register();
             console.log(res);
-            // clearForm();
-            // success();
-            // Router.push({ pathname: `/login` });
+            clearForm();
+            success();
+            Router.push({ pathname: `/login` });
           }}
           padding="0px"
         >
