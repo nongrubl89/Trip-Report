@@ -18,6 +18,7 @@ const theme = {
 
 export default function MyApp({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
+  console.log(apolloClient);
   return (
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
