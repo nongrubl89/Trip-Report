@@ -24,9 +24,7 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color: black;
   }
-  a:hover {
-    color:#3c4c9f;
-  }
+
 
   button {
     font-family: 'Playfair Display', serif;
