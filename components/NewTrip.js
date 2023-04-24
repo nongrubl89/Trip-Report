@@ -119,12 +119,12 @@ export default function NewTrip({ tail }) {
 
   const addNameInput = () => {
     return passengerInputs.map((pax, i) => (
-      <label htmlFor="PassengerName" key={i}>
+      <label htmlFor="PassengerNames" key={i}>
         Passenger {pax + 1}
         <input
           type="text"
           className="form-control"
-          name="PassengerName"
+          name="PassengerNames"
           onBlur={handlePaxNames}
         />
       </label>

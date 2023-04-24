@@ -31,7 +31,6 @@
 
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import Script from 'next/script';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -68,12 +67,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@200;300;400;500&display=swap"
             rel="stylesheet"
           />
-          <Script
-            id="googlemaps"
-            type="text/javascript"
-            strategy="beforeInteractive"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiPePDIL-iGCiqkEol1mkYlBTWwxwzitk&libraries=places"
-          />
+          <meta charset="utf-8" />
         </Head>
         <body>
           <Main />

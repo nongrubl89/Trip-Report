@@ -2,6 +2,8 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable react/prop-types */
 import { useQuery, useMutation } from '@apollo/client';
+import { EditorState } from 'draft-js';
+import dynamic from 'next/dynamic';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import { SINGLE_TRIP_QUERY } from './SingleTrip';
@@ -10,6 +12,14 @@ import ButtonGrid from '../styles/ButtonGrid';
 import useForm from '../lib/useForm';
 import LargeHeaderCard from '../styles/SingleTail';
 import ErrorComponent from './ErrorComponent';
+import 'draft-js/dist/Draft.css';
+
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+const Editor = dynamic(
+  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  { ssr: false }
+);
 
 const UPDATE_TRIP_MUTATION = gql`
   mutation updateTrip($id: ID!, $CateringDetails: String!, $Feedback: String!) {

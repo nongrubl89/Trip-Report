@@ -1,7 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { EditorState } from 'draft-js';
+import dynamic from 'next/dynamic';
 import useForm from '../lib/useForm';
 import Form from '../styles/Form';
 import ButtonGrid from '../styles/ButtonGrid';
+import 'draft-js/dist/Draft.css';
+
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+const Editor = dynamic(
+  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  { ssr: false }
+);
 
 export default function NewTail() {
   const [prevLength, setPrevLength] = useState();
@@ -16,6 +27,11 @@ export default function NewTail() {
     StandardStockNonPerishable: '',
     StandardStockPerishable: '',
   });
+  const [perishableEditorState, setPerishableEditorState] = React.useState(() =>
+    EditorState.createEmpty()
+  );
+  const [nonperishableEditorState, setNonPerishableEditorState] =
+    React.useState(() => EditorState.createEmpty());
   const CRLF = 10;
   const BULLET = String.fromCharCode(45);
 
@@ -158,30 +174,29 @@ export default function NewTail() {
             />
           </label>
         </ButtonGrid>
-        <label>
-          Perishable Standard Stock
-          <textarea
-            id="txt"
-            rows="30"
-            cols="40"
-            onChange={onTextAreaChange}
-            value={preferenceList}
-            placeholder="-"
-          />
-          <input type="hidden" id="prevLen" value={prevLength} />
-        </label>
-        <label>
-          Non-Perishable Standard Stock
-          <textarea
-            id="txt"
-            rows="30"
-            cols="40"
-            onChange={onTextAreaChange}
-            value={preferenceList}
-            placeholder="-"
-          />
-        </label>
-        <input type="hidden" id="prevLen" value={prevLength} />
+        <p>Perishable Standard Stock - please use a bulleted list</p>
+        <Editor
+          editorState={perishableEditorState}
+          onEditorStateChange={setPerishableEditorState}
+          toolbar={{
+            options: ['list'],
+            list: { inDropdown: true },
+            link: { inDropdown: true },
+          }}
+        />
+        <p>
+          Non-Perishable Standard Stock - please use a bulleted list and add
+          links to any hard to find items
+        </p>
+        <Editor
+          editorState={nonperishableEditorState}
+          onEditorStateChange={setNonPerishableEditorState}
+          toolbar={{
+            options: ['list', 'link'],
+            list: { inDropdown: true },
+            link: { inDropdown: true },
+          }}
+        />
       </fieldset>
     </Form>
   );
