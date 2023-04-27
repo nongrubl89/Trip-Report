@@ -24,7 +24,7 @@ export const SINGLE_TRIP_QUERY = gql`
           EndDate
           PaxCount
           CateringRequests
-          TripStatus
+          Status
           PassengerNames {
             PassengerName
           }
@@ -84,10 +84,10 @@ export default function SingleTrip({ uuid }) {
         <h3>
           {tripDetails.StartDate} through {tripDetails.EndDate}
         </h3>
-        <h3>
+        {/* <h3>
           <strong>Trip Status</strong>:
           {tripDetails.TripStatus ? ' Completed' : ' Scheduled'}
-        </h3>
+        </h3> */}
         <hr />
         <p>
           <strong>Cabin Attendant:</strong> {tripDetails.CabinAttendantName}

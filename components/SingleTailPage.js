@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -48,7 +49,7 @@ export default function TailPage({ id }) {
     variables: { Slug: id },
   });
   console.log('id', id);
-  const tailData = data?.tailNumbers?.data[0].attributes;
+  const tailData = data?.tailNumbers?.data[0]?.attributes;
   if (loading) return <h3>Loading</h3>;
   if (error) return <ErrorComponent error={error.message} />;
   return (
@@ -77,12 +78,21 @@ export default function TailPage({ id }) {
           <p>
             <strong>Non-Perishable Standard Stock:</strong>
             {'\n'}
-            {tailData.StandardStockNonPerishable}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: tailData.StandardStockNonPerishable,
+              }}
+            />
           </p>
           <p>
             <strong>Perishable Standard Stock:</strong>
             {'\n'}
-            {tailData.StandardStockPerishable}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: tailData.StandardStockPerishable,
+              }}
+            />
+            {/* {tailData.StandardStockPerishable} */}
           </p>
           <ButtonGrid alignItems="end" placeSelf="end">
             <Link

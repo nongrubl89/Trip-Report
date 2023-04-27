@@ -21,7 +21,7 @@ const CREATE_TRIP_MUTATION = gql`
     $CateringRequests: String!
     $PaxCount: Int!
     $PassengerNames: [ComponentNamePaxNameInput]
-    $TripStatus: Boolean!
+    $Status: ENUM_TRIP_STATUS!
     $uuid: String!
     $tail_number: ID!
   ) {
@@ -34,7 +34,7 @@ const CREATE_TRIP_MUTATION = gql`
         PaxCount: $PaxCount
         PassengerNames: $PassengerNames
         CateringRequests: $CateringRequests
-        TripStatus: $TripStatus
+        Status: $Status
         uuid: $uuid
         tail_number: $tail_number
       }
@@ -51,7 +51,7 @@ const CREATE_TRIP_MUTATION = gql`
           CateringRequests
           PaxCount
           uuid
-          TripStatus
+          Status
           tail_number {
             data {
               attributes {
@@ -147,11 +147,12 @@ export default function NewTrip({ tail }) {
         onSubmit={async (e) => {
           e.preventDefault();
           console.log('click');
-          let tripStatus;
-          if (isDateBeforeToday(inputs.StartDate)) {
-            tripStatus = true;
-          } else tripStatus = false;
-          console.log(passengerNames);
+          console.log(inputs.StartDate);
+          const tripStatus = isDateBeforeToday(
+            inputs.StartDate,
+            inputs.EndDate
+          );
+          console.log(tripStatus);
           const res = await createTrip({
             variables: {
               uuid: newUuid,
@@ -163,7 +164,7 @@ export default function NewTrip({ tail }) {
               tail_number: inputs.tail_number,
               PaxCount: parseInt(paxCount),
               PassengerNames: passengerNames,
-              TripStatus: tripStatus,
+              Status: tripStatus,
             },
           });
           console.log(res);
