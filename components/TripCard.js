@@ -7,16 +7,12 @@ import ButtonGrid from '../styles/ButtonGrid';
 
 export default function TripCard({ trip, tailNum }) {
   const t = trip.attributes;
-  console.log(typeof t.StartDate);
   function isDateBeforeToday(date) {
     return new Date(date) < new Date(new Date().toDateString());
   }
-  console.log(isDateBeforeToday(t.StartDate));
-  console.log(trip.attributes.TripStatus);
-  console.log(trip.attributes.DebriefComplete);
   return (
     <CardItem>
-      <Link href={`/trip/${trip.attributes.uuid}`}>
+      <Link href={`/trip/${trip.attributes.Slug}`}>
         <h2>{t.Routing}</h2>
       </Link>
       <h2>
@@ -24,7 +20,7 @@ export default function TripCard({ trip, tailNum }) {
       </h2>
       {!trip.attributes.DebriefComplete && isDateBeforeToday(t.EndDate) ? (
         <ButtonGrid>
-          <Link href={`/edittrip/${trip.attributes.uuid}`}>
+          <Link href={`/edittrip/${trip.attributes.Slug}`}>
             <button type="button">Complete Trip Debrief</button>
           </Link>
         </ButtonGrid>

@@ -5,6 +5,7 @@ import TitleItem from '../styles/Title';
 import isDateBeforeToday from '../lib/datePrior';
 
 export default function Trips({ trips, tailNum }) {
+  console.log(trips);
   const previousTrips = trips.data.filter(
     (trip) =>
       isDateBeforeToday(trip.attributes.StartDate, trip.attributes.EndDate) ===
@@ -20,9 +21,6 @@ export default function Trips({ trips, tailNum }) {
       isDateBeforeToday(trip.attributes.StartDate, trip.attributes.EndDate) ===
       'Upcoming'
   );
-  console.log('prev', previousTrips);
-  console.log('prog', tripsInProgress);
-  // console.log('upc', tripsComplete);
   if (trips.data.length <= 0)
     return (
       <MasterGrid>

@@ -22,10 +22,19 @@ const Editor = dynamic(
 );
 
 const UPDATE_TRIP_MUTATION = gql`
-  mutation updateTrip($id: ID!, $CateringDetails: String!, $Feedback: String!) {
+  mutation updateTrip(
+    $id: ID!
+    $CateringDetails: String!
+    $Feedback: String!
+    $DebriefComplete: Boolean!
+  ) {
     updateTrip(
       id: $id
-      data: { CateringDetails: $CateringDetails, Feedback: $Feedback }
+      data: {
+        CateringDetails: $CateringDetails
+        Feedback: $Feedback
+        DebriefComplete: $DebriefComplete
+      }
     ) {
       data {
         attributes {
@@ -37,9 +46,9 @@ const UPDATE_TRIP_MUTATION = gql`
   }
 `;
 
-export default function UpdateTrip({ uuid }) {
+export default function UpdateTrip({ Slug }) {
   const { data, loading, error } = useQuery(SINGLE_TRIP_QUERY, {
-    variables: { uuid },
+    variables: { Slug },
   });
   const [
     updateTrip,
@@ -97,14 +106,15 @@ export default function UpdateTrip({ uuid }) {
                 id: data.trips.data[0].id,
                 Feedback: inputs.Feedback,
                 CateringDetails: inputs.CateringDetails,
+                DebriefComplete: true,
               },
               refetchQueries: [
-                { query: SINGLE_TRIP_QUERY, variables: { uuid } },
+                { query: SINGLE_TRIP_QUERY, variables: { Slug } },
               ],
             });
             console.log(res);
             clearForm();
-            Router.push({ pathname: `/trip/${uuid}` });
+            Router.push({ pathname: `/trip/${Slug}` });
           }}
         >
           <fieldset>

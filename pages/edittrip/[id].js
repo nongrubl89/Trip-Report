@@ -5,5 +5,5 @@ export default function EditTrip() {
   const router = useRouter();
   const { query } = router;
   console.log(query.id);
-  return <UpdateTrip uuid={query.id} />;
+  return <UpdateTrip Slug={query.id} />;
 }

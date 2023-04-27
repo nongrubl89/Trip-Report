@@ -10,8 +10,8 @@ import ButtonGrid from '../styles/ButtonGrid';
 import { SINGLE_TAIL_QUERY } from './SingleTailPage';
 
 export const SINGLE_TRIP_QUERY = gql`
-  query SINGLE_TRIP_QUERY($uuid: String!) {
-    trips(filters: { uuid: { eq: $uuid } }) {
+  query SINGLE_TRIP_QUERY($Slug: String!) {
+    trips(filters: { Slug: { eq: $Slug } }) {
       data {
         id
         attributes {
@@ -24,7 +24,7 @@ export const SINGLE_TRIP_QUERY = gql`
           EndDate
           PaxCount
           CateringRequests
-          Status
+          DebriefComplete
           PassengerNames {
             PassengerName
           }
@@ -52,10 +52,10 @@ const DELETE_TRIP_MUTATION = gql`
   }
 `;
 
-export default function SingleTrip({ uuid }) {
-  console.log('uuid', uuid);
+export default function SingleTrip({ Slug }) {
+  console.log('slug', Slug);
   const { data, loading, error } = useQuery(SINGLE_TRIP_QUERY, {
-    variables: { uuid },
+    variables: { Slug },
   });
   const tripDetails = data?.trips?.data[0]?.attributes;
   const slug = data?.trips?.data[0].attributes.tail_number.data.attributes.Slug;
@@ -101,7 +101,7 @@ export default function SingleTrip({ uuid }) {
           {tripDetails.CateringRequests}
         </p>
       </div>
-      {tripDetails.TripStatus ? (
+      {tripDetails.DebriefComplete ? (
         <div>
           <p>
             <strong>Catering Details: </strong>

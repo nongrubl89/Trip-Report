@@ -31,10 +31,10 @@ export const SINGLE_TAIL_QUERY = gql`
                 StartDate
                 EndDate
                 Routing
-                TripStatus
                 uuid
                 Feedback
                 DebriefComplete
+                Slug
               }
             }
           }
@@ -48,7 +48,6 @@ export default function TailPage({ id }) {
   const { data, loading, error } = useQuery(SINGLE_TAIL_QUERY, {
     variables: { Slug: id },
   });
-  console.log('id', id);
   const tailData = data?.tailNumbers?.data[0]?.attributes;
   if (loading) return <h3>Loading</h3>;
   if (error) return <ErrorComponent error={error.message} />;
@@ -78,7 +77,7 @@ export default function TailPage({ id }) {
           <p>
             <strong>Non-Perishable Standard Stock:</strong>
             {'\n'}
-            <div
+            <span
               dangerouslySetInnerHTML={{
                 __html: tailData.StandardStockNonPerishable,
               }}
@@ -87,7 +86,7 @@ export default function TailPage({ id }) {
           <p>
             <strong>Perishable Standard Stock:</strong>
             {'\n'}
-            <div
+            <span
               dangerouslySetInnerHTML={{
                 __html: tailData.StandardStockPerishable,
               }}
