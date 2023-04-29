@@ -7,7 +7,7 @@ const CardItem = styled.div`
   padding: 2em;
   border-radius: 8px;
   margin: 2em;
-  height: ${(props) => props.height || '220px'};
+  height: ${(props) => props.height || '140px'};
   border-bottom: 25px #3c4c9f solid;
   justify-content: ${(props) => props.justifyContent || 'left'};
   align-items: ${(props) => props.alignItems || ''};
@@ -17,6 +17,7 @@ const CardItem = styled.div`
   h2 {
     font-weight: 700;
     margin-bottom: 1em;
+    font-size: 1em;
   }
   img {
     height: 12em;

@@ -33,8 +33,6 @@ export default function Login() {
   async function onSubmit(e) {
     e.preventDefault();
     const res = await login(username, password);
-    // if (error) setErrorMessage(error.message);
-    console.log(res);
     Router.push({ pathname: `/tails` });
   }
   const [authToken] = useAuthToken();

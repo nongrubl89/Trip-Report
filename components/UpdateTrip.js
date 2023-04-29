@@ -55,7 +55,6 @@ export default function UpdateTrip({ Slug }) {
     { data: updateData, error: updateError, loading: updateLoading },
   ] = useMutation(UPDATE_TRIP_MUTATION);
   const tripData = data?.trips?.data[0]?.attributes;
-  console.log(data?.trips?.data[0]);
   const { inputs, handleChange, clearForm, resetForm } = useForm({
     Feedback: '',
     CateringDetails: '',
@@ -100,7 +99,6 @@ export default function UpdateTrip({ Slug }) {
         <Form
           onSubmit={async (e) => {
             e.preventDefault();
-            console.log(inputs);
             const res = await updateTrip({
               variables: {
                 id: data.trips.data[0].id,
@@ -112,7 +110,6 @@ export default function UpdateTrip({ Slug }) {
                 { query: SINGLE_TRIP_QUERY, variables: { Slug } },
               ],
             });
-            console.log(res);
             clearForm();
             Router.push({ pathname: `/trip/${Slug}` });
           }}

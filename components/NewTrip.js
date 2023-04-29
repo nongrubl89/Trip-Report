@@ -110,7 +110,6 @@ export default function NewTrip({ tail }) {
       const generateArrays = Array.from(
         Array(Number(event.target.value)).keys()
       );
-      console.log('g', generateArrays);
       setPassengerInputs(generateArrays);
     } else {
       setPassengerInputs([]);
@@ -132,11 +131,9 @@ export default function NewTrip({ tail }) {
   };
 
   const handlePaxNames = (e) => {
-    console.log(e.target.value);
     const passenger = {};
     passenger.PassengerName = e.target.value;
     passengerNames.push(passenger);
-    console.log(passengerNames);
   };
 
   if (loading) return <h3>Loading</h3>;
@@ -146,13 +143,10 @@ export default function NewTrip({ tail }) {
       <Form
         onSubmit={async (e) => {
           e.preventDefault();
-          console.log('click');
-          console.log(inputs.StartDate);
           const tripStatus = isDateBeforeToday(
             inputs.StartDate,
             inputs.EndDate
           );
-          console.log(tripStatus);
           const res = await createTrip({
             variables: {
               uuid: newUuid,
@@ -167,7 +161,6 @@ export default function NewTrip({ tail }) {
               Status: tripStatus,
             },
           });
-          console.log(res);
           Router.push({ pathname: `/tail/${tail}` });
         }}
       >

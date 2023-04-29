@@ -51,6 +51,8 @@ export default function TailPage({ id }) {
   const tailData = data?.tailNumbers?.data[0]?.attributes;
   if (loading) return <h3>Loading</h3>;
   if (error) return <ErrorComponent error={error.message} />;
+
+  const styleObj = { display: 'flex', flexDirection: 'column' };
   return (
     <div style={{ background: '#93dbfb' }}>
       <LargeHeaderCard>
@@ -76,23 +78,22 @@ export default function TailPage({ id }) {
         <div style={{ display: 'grid', gap: '1em' }}>
           <p>
             <strong>Non-Perishable Standard Stock:</strong>
-            {'\n'}
-            <span
-              dangerouslySetInnerHTML={{
-                __html: tailData.StandardStockNonPerishable,
-              }}
-            />
           </p>
+          {'\n'}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: tailData.StandardStockNonPerishable,
+            }}
+          />
           <p>
             <strong>Perishable Standard Stock:</strong>
-            {'\n'}
-            <span
-              dangerouslySetInnerHTML={{
-                __html: tailData.StandardStockPerishable,
-              }}
-            />
-            {/* {tailData.StandardStockPerishable} */}
           </p>
+          {'\n'}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: tailData.StandardStockPerishable,
+            }}
+          />
           <ButtonGrid alignItems="end" placeSelf="end">
             <Link
               href={{

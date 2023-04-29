@@ -48,7 +48,6 @@ const UPDATE_TAIL_MUTATION = gql`
 `;
 
 export default function UpdateTail({ tail }) {
-  console.log(console.log(tail));
   const { data, loading, error } = useQuery(SINGLE_TAIL_QUERY, {
     variables: { Slug: tail },
   });
@@ -57,7 +56,6 @@ export default function UpdateTail({ tail }) {
     { data: updateData, error: updateError, loading: updateLoading },
   ] = useMutation(UPDATE_TAIL_MUTATION);
   const tailData = data?.tailNumbers?.data[0].attributes;
-  console.log(data?.tailNumbers?.data[0].id);
   const { inputs, handleChange, clearForm, resetForm } = useForm({
     TailNumber: `${tailData?.TailNumber}`,
     Owner: `${tailData?.Owner}`,

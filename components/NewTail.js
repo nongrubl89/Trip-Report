@@ -74,21 +74,20 @@ export default function NewTail() {
     nonperishableEditorState.getCurrentContent()
   );
   const { inputs, handleChange, clearForm, resetForm } = useForm({
-    TailNumber: 'N75GG',
-    HomeICAO: 'KVNY',
-    AircraftType: 'Gulfstream 550',
-    CabinAttendant: 'lisab urgnon',
-    CabinAttendantEmail: 'lisab urgnon',
-    Owner: 'lisab urgnon',
-    PIC: 'lisab urgnon',
-    PICEmail: 'lisab urgnon',
-    SICEmail: 'lisab urgnon',
-    SIC: 'lisab urgnon',
+    TailNumber: '',
+    HomeICAO: '',
+    AircraftType: '',
+    CabinAttendant: '',
+    CabinAttendantEmail: '',
+    Owner: '',
+    PIC: '',
+    PICEmail: '',
+    SICEmail: '',
+    SIC: '',
     StandardStockNonPerishable: htmlPerishable,
     StandardStockPerishable: htmlNonPerishable,
   });
 
-  // useEffect(() => console.log(perishableEditorState.getCurrentContent()));
   const [createTail, { ldg, err, dta }] = useMutation(CREATE_TAIL_MUTATION, {
     refetchQueries: [{ query: ALL_TAILS_QUERY }],
   });
@@ -97,8 +96,6 @@ export default function NewTail() {
     <Form
       onSubmit={async (e) => {
         e.preventDefault();
-        console.log(inputs);
-        console.log('click');
         const res = await createTail({
           variables: {
             TailNumber: inputs.TailNumber,
@@ -116,7 +113,6 @@ export default function NewTail() {
             Slug: slugify(inputs.TailNumber),
           },
         });
-        console.log(res);
       }}
     >
       <fieldset>

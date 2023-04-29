@@ -53,7 +53,6 @@ const DELETE_TRIP_MUTATION = gql`
 `;
 
 export default function SingleTrip({ Slug }) {
-  console.log('slug', Slug);
   const { data, loading, error } = useQuery(SINGLE_TRIP_QUERY, {
     variables: { Slug },
   });
@@ -69,7 +68,6 @@ export default function SingleTrip({ Slug }) {
     }).catch(console.log(error));
     Router.push({ pathname: `/tail/${slug}` });
   };
-  console.log(tripDetails?.PassengerNames);
   const paxNames = tripDetails?.PassengerNames.map((passenger, i) => (
     <li key={i}>{passenger.PassengerName}</li>
   ));
@@ -84,10 +82,6 @@ export default function SingleTrip({ Slug }) {
         <h3>
           {tripDetails.StartDate} through {tripDetails.EndDate}
         </h3>
-        {/* <h3>
-          <strong>Trip Status</strong>:
-          {tripDetails.TripStatus ? ' Completed' : ' Scheduled'}
-        </h3> */}
         <hr />
         <p>
           <strong>Cabin Attendant:</strong> {tripDetails.CabinAttendantName}

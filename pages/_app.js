@@ -9,6 +9,7 @@ import Page from '../components/Page';
 import { useApollo } from '../lib/withData';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
+import '../public/styles.css';
 
 const theme = {
   colors: {
