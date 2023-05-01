@@ -9,8 +9,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-// import MasterGrid from '../styles/MasterGrid';
-// import SingleTailCard from './SingleTailCard';
 import { styled } from '@mui/material/styles';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import Link from 'next/link';
@@ -26,6 +24,13 @@ export const ALL_TAILS_QUERY = gql`
           AircraftType
           HomeICAO
           Slug
+          trips(filters: { DebriefComplete: { null: true } }) {
+            data {
+              attributes {
+                EndDate
+              }
+            }
+          }
         }
       }
     }
@@ -45,6 +50,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function Tails({ tailsArray }) {
   console.log('tails', tailsArray);
+  // tailsArray.filter((tail)=>)
   const { data, error, loading } = useQuery(ALL_TAILS_QUERY);
   console.log(data?.tailNumbers?.data);
   console.log(error);

@@ -92,6 +92,7 @@ export default function SingleTrip({ Slug }) {
         <ul>{paxNames}</ul>
         <p>
           <strong>Catering Requests: </strong>
+          {'\n'}
           {tripDetails.CateringRequests}
         </p>
       </div>
@@ -99,6 +100,7 @@ export default function SingleTrip({ Slug }) {
         <div>
           <p>
             <strong>Catering Details: </strong>
+            {'\n'}
             {tripDetails.CateringDetails}
           </p>
           <p>

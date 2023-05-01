@@ -13,12 +13,20 @@ const CardItem = styled.div`
   align-items: ${(props) => props.alignItems || ''};
   display: flex;
   flex-direction: column;
+  /* display: grid;
+  grid-template-columns: 90% 10%; */
+
+  /* svg {
+    margin-bottom: 30px;
+  } */
 
   h2 {
     font-weight: 700;
-    margin-bottom: 1em;
+    /* margin-bottom: 1em; */
     font-size: 1em;
+    width: 75%;
   }
+
   img {
     height: 12em;
     width: 10em;
