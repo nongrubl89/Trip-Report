@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import Link from 'next/link';
+import Badge from '@mui/material/Badge';
 import ErrorComponent from './ErrorComponent';
 
 export const ALL_TAILS_QUERY = gql`
@@ -49,8 +50,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export default function Tails({ tailsArray }) {
-  console.log('tails', tailsArray);
-  // tailsArray.filter((tail)=>)
+  // console.log('tails', tailsArray);
+
   const { data, error, loading } = useQuery(ALL_TAILS_QUERY);
   console.log(data?.tailNumbers?.data);
   console.log(error);
@@ -63,8 +64,9 @@ export default function Tails({ tailsArray }) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Tail Number</StyledTableCell>
-              <StyledTableCell align="right">Home Base</StyledTableCell>
               <StyledTableCell align="right">Aircraft Make</StyledTableCell>
+              <StyledTableCell align="right">Home Base</StyledTableCell>
+              <StyledTableCell align="right">Action Needed</StyledTableCell>
               <StyledTableCell align="right">Details</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -81,6 +83,9 @@ export default function Tails({ tailsArray }) {
                   {tail.attributes.AircraftType}
                 </TableCell>
                 <TableCell align="right">{tail.attributes.HomeICAO}</TableCell>
+                <TableCell align="right">
+                  <Badge badgeContent={4} color="error" sx={{ mr: 3 }} />
+                </TableCell>
                 <TableCell align="right">
                   <Link href={`/tail/${tail.attributes.Slug}`}>
                     <NorthEastIcon />
