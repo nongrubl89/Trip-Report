@@ -25,13 +25,6 @@ export const ALL_TAILS_QUERY = gql`
           AircraftType
           HomeICAO
           Slug
-          trips(filters: { DebriefComplete: { null: true } }) {
-            data {
-              attributes {
-                EndDate
-              }
-            }
-          }
         }
       }
     }
